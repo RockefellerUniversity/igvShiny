@@ -835,6 +835,72 @@ Shiny.addCustomMessageHandler("loadGFF3TrackFromLocalData",
        igvBrowser.loadTrack(config)
       } // function
 
+); // loadMergedBigWigFromURLs
+//----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("loadMergedBigWigFromURLs",
+
+   function(message){
+      igvshiny_log("=== loadMergedBigWigFromURLs");
+      igvshiny_log(message)
+
+      var elementID = message.elementID;
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+      var mergedName = message.mergedName;
+      var trackName1 = message.trackName1;
+      var trackName2 = message.trackName2;
+      var color = message.color;
+      var trackHeight = message.trackHeight;
+      var autoscale = message.autoscale;
+      var autoscaleGroup = message.autoscaleGroup;
+      var min = message.min;
+      var max = message.max;
+      var url1 = message.url1;       
+      var url2 = message.url2; 
+      
+      
+      var config = {
+                    name: mergedName,
+                    height: 50,
+                    type: "merged",
+                    supportsWholeGenome: true,
+                    tracks: [
+                        {
+                          type: "wig",
+                          name: trackName1,
+                          url: url1,
+                          order: Number.MAX_VALUE,
+                          color: color,
+                          autoscale: autoscale,
+                          min: min,
+                          max: max
+                        },
+                        {
+                          type: "wig",
+                          name: trackName2,
+                          url: url2,
+                          order: Number.MAX_VALUE,
+                          color: color,
+                          autoscale: autoscale,
+                          min: min,
+                          max: max
+                        }
+                    ]
+                }
+     // type: "wig",
+     // name: "CTCF",
+     // url: "https://www.encodeproject.org/files/ENCFF356YES/@@download/ENCFF356YES.bigWig",
+     // min: "0",
+     // max: "30",
+     // color: "rgb(0, 0, 150)",
+
+
+      console.log("--- loading bedGraphTrackFromURL");
+      console.log(config)
+      igvBrowser.loadTrack(config);
+      } // function
+
 );  // loadGFF3TrackFromLocalData
 //------------------------------------------------------------------------------------------------------------------------
+
+
 

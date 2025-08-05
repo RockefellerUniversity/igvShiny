@@ -1,7 +1,8 @@
 Package: igvShiny
-Title: igvShiny: a wrapper of Integrative Genomics Viewer (IGV - an interactive
-    tool for visualization and exploration integrated genomic data)
-Version: 1.3.0
+Title: igvShiny: a wrapper of Integrative Genomics Viewer (IGV - an
+        interactive tool for visualization and exploration integrated
+        genomic data)
+Version: 1.5.2
 Date: 2024-08-29
 Authors@R: c(
     person("Paul","Shannon", role = c("aut"), 
@@ -14,43 +15,31 @@ Authors@R: c(
 Description: This package is a wrapper of Integrative Genomics Viewer (IGV).
     It comprises an htmlwidget version of IGV. It can be used as a module 
     in Shiny apps. 
-URL: https://github.com/gladkia/igvShiny, https://gladkia.github.io/igvShiny/
+URL: https://github.com/gladkia/igvShiny,
+        https://gladkia.github.io/igvShiny/
 BugReports: https://github.com/gladkia/igvShiny/issues
-Depends: 
-    GenomicRanges,
-    methods,
-    shiny
-Imports: 
-    BiocGenerics,
-    checkmate,
-    futile.logger,
-    GenomeInfoDbData,
-    htmlwidgets,
-    httr,
-    jsonlite,
-    randomcoloR,
-    utils
-Suggests: 
-    BiocStyle,
-    GenomicAlignments,
-    knitr,
-    Rsamtools,
-    rtracklayer,
-    RUnit,
-    shinytest2,
-    VariantAnnotation
+Depends: R (>= 3.5.0), GenomicRanges, methods, shiny
+Imports: BiocGenerics, checkmate, futile.logger, GenomeInfoDbData,
+        htmlwidgets, httr, jsonlite, randomcoloR, utils
+Suggests: BiocStyle, GenomicAlignments, knitr, Rsamtools, rtracklayer,
+        RUnit, shinytest2, VariantAnnotation
 biocViews: Software, ShinyApps, Sequencing, Coverage
 License: MIT + file LICENSE
 Encoding: UTF-8
-Collate:
-    'constants.R'
-    'genomeSpec.R'
-    'GWASTrack.R'
-    'igvShiny.R'
-    'packages.R'
-    'test_igvShiny_package.R'
-    'utils.R'
-    'zzz.R'
-RoxygenNote: 7.3.1
-VignetteBuilder: 
-    knitr
+Collate: 'constants.R' 'genomeSpec.R' 'GWASTrack.R' 'igvShiny.R'
+        'packages.R' 'test_igvShiny_package.R' 'utils.R' 'zzz.R'
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+git_url: https://git.bioconductor.org/packages/igvShiny
+git_branch: RELEASE_3_21
+git_last_commit: 6b41d46
+git_last_commit_date: 2025-04-15
+Repository: Bioconductor 3.21
+Date/Publication: 2025-04-15
+NeedsCompilation: no
+Packaged: 2025-04-15 22:52:03 UTC; biocbuild
+Author: Paul Shannon [aut],
+  Arkadiusz Gladki [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-7059-6378>),
+  Karolina Scigocka [aut]
+Maintainer: Arkadiusz Gladki <gladki.arkadiusz@gmail.com>

@@ -1206,3 +1206,110 @@ loadGFF3TrackFromLocalData <-
     
   } # loadGFF3TrackFromLocalData
 #-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' load a Merged track from URLs
+#'
+#' @description load a Merged track
+#'
+#' @rdname loadMergedBigWigFromURLs
+#' @aliases loadMergedBigWigFromURLs
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' @param mergedName character string
+#' @param trackName1 character string
+#' @param trackName2 character string 
+#' @param url1 character
+#' @param url2 character 
+#' @param color character string, a legal CSS color, or "random", 
+#' "gray" by default
+#' @param trackHeight an integer, 30 (pixels) by default
+#' @param autoscale logical
+#' @param min numeric, consulted when autoscale is FALSE
+#' @param max numeric, consulted when autoscale is FALSE
+#' @param quiet logical, default TRUE, controls verbosity
+#' @param autoscaleGroup numeric(1) defaults to -1
+#' @param deleteTracksOfSameName logical(1) defaults to TRUE
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+loadMergedBigWigFromURLs <-
+  function(session,
+           id,
+           mergedName,
+           trackName1,
+           trackName2,
+           url1,
+           url2,
+           color = "gray",
+           trackHeight = 30,
+           autoscale = TRUE,
+           min = 0,
+           max = 1,
+           autoscaleGroup = -1,
+           deleteTracksOfSameName = TRUE,
+           quiet = TRUE) {
+    message("---- loadBedGraphTrackFromURL")
+    
+    if (color == "random")
+      color <-
+        randomColors[sample(seq_len(length(randomColors)), 1)]
+    
+    if (!quiet) {
+      lmsg <- sprintf("--- igvShiny::loadMergedBigWigFromURLs: %s",
+                      trackName1)
+      flog.debug(lmsg)
+      
+    }
+    
+    if (deleteTracksOfSameName) {
+      lmsg <- sprintf(
+        "--- loadMergedBigWigFromURLs, calling removeTracksByName: %s, %s",
+        id,
+        trackName1
+      )
+      flog.debug(lmsg)
+      removeTracksByName(session, id, trackName1)
+      removeTracksByName(session, id, trackName2)
+    }
+    
+    state[["userAddedTracks"]] <-
+      unique(c(state[["userAddedTracks"]], trackName1))
+    state[["userAddedTracks"]] <-
+      unique(c(state[["userAddedTracks"]], trackName2))    
+    
+    msg.to.igv <-
+      list(
+        elementID = id,
+        mergedName = mergedName,
+        trackName1 = trackName1,
+        trackName2 = trackName2,
+        url1 = url1,
+        url2 = url2,
+        color = color,
+        trackHeight = trackHeight,
+        autoscale = autoscale,
+        min = min,
+        max = max,
+        autoscaleGroup = autoscaleGroup
+      )  # -1 means no grouping
+    
+    flog.debug("--- igvShiny.R loadMergedBigWigFromURLs, msg.to.igv: ")
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    flog.debug("--- igvShiny.R loadMergedBigWigFromURLs, sendingCustomMessage")
+    session$sendCustomMessage("loadMergedBigWigFromURLs", msg.to.igv)
+    flog.debug("--- loadMergedBigWigFromURLs, after sendingCustomMessage")
+    
+  } # loadBedGraphTrackFromURL
