@@ -1281,8 +1281,9 @@ loadMergedBigWigFromURLs <-
         trackName1
       )
       flog.debug(lmsg)
-      removeTracksByName(session, id, trackName1)
-      removeTracksByName(session, id, trackName2)
+      # removeTracksByName(session, id, trackName1)
+      # removeTracksByName(session, id, trackName2)
+      removeTracksByName(session, id, mergedName)
     }
     
     state[["userAddedTracks"]] <-
