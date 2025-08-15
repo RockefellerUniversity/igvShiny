@@ -7,6 +7,7 @@
 loadMergedBigWigFromURLs(
   session,
   id,
+  mergedName,
   trackName1,
   trackName2,
   url1,
@@ -25,6 +26,8 @@ loadMergedBigWigFromURLs(
 \item{session}{an environment or list, provided and managed by shiny}
 
 \item{id}{character string, the html element id of this widget instance}
+
+\item{mergedName}{character string}
 
 \item{trackName1}{character string}
 
@@ -50,8 +53,6 @@ loadMergedBigWigFromURLs(
 \item{deleteTracksOfSameName}{logical(1) defaults to TRUE}
 
 \item{quiet}{logical, default TRUE, controls verbosity}
-
-\item{mergedName}{character string}
 }
 \value{
 nothing
