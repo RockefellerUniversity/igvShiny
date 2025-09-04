@@ -1313,3 +1313,96 @@ loadMergedBigWigFromURLs <-
     flog.debug("--- loadMergedBigWigFromURLs, after sendingCustomMessage")
     
   } # loadBedGraphTrackFromURL
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' Save a session
+#'
+#' @description Saves a compressed session.
+#'
+#' @rdname saveCompressionSession
+#' @aliases saveCompressionSession
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+saveCompressionSession <-
+  function(session,
+           id,event_name = "igv_session") {
+    message("---- saveCompressionSession")
+    
+    
+    msg.to.igv <-
+      list(
+        elementID = id,
+        eventName = event_name
+      )  # -1 means no grouping
+    
+    flog.debug("--- igvShiny.R saveCompressionSession, msg.to.igv: ")
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    flog.debug("--- igvShiny.R saveCompressionSession, sendingCustomMessage")
+    session$sendCustomMessage("saveCompressionSession", msg.to.igv)
+    flog.debug("--- saveCompressionSession, after sendingCustomMessage")
+    
+  } # loadBedGraphTrackFromURL
+
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' Save a JSON session
+#'
+#' @description Saves a JSON session.
+#'
+#' @rdname saveJSONSession
+#' @aliases saveJSONSession
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+saveJSONSession <-
+  function(session,
+           id,event_name = "igv_json_session") {
+    message("---- saveCompressionSession")
+    
+    
+    msg.to.igv <-
+      list(
+        elementID = id,
+        eventName = event_name
+      )  # -1 means no grouping
+    
+    flog.debug("--- igvShiny.R saveJSONSession, msg.to.igv: ")
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    flog.debug("--- igvShiny.R saveJSONSession, sendingCustomMessage")
+    session$sendCustomMessage("saveJSONSession", msg.to.igv)
+    flog.debug("--- saveJSONSession, after sendingCustomMessage")
+    
+  } # loadBedGraphTrackFromURL

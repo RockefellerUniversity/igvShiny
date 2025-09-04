@@ -900,7 +900,42 @@ Shiny.addCustomMessageHandler("loadMergedBigWigFromURLs",
       } // function
 
 );  // loadGFF3TrackFromLocalData
-//------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("saveCompressionSession",
+
+   function(message){
+      igvshiny_log("=== compressedSession");
+      igvshiny_log(message)
+      var elementID = message.elementID;
+      var eventName  = message.eventName || (elementID + "_session");
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+  
+      const sessionString = igvBrowser.compressedSession();
+      // include a nonce so repeated identical sessions still trigger observeEvent
+      Shiny.setInputValue(eventName, 
+      { data: sessionString, nonce: Date.now() }, 
+      { priority: "event" });
+      } // function
+
+); // loadMergedBigWigFromURLs
+//----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("saveJSONSession",
+
+   function(message){
+      igvshiny_log("=== jsonSession");
+      igvshiny_log(message)
+      var elementID = message.elementID;
+      var eventName  = message.eventName || (elementID + "_session");
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+      const json = igvBrowser.toJSON();
+      const jsonStr  = JSON.stringify(json);
+      Shiny.setInputValue(eventName, 
+      { data: jsonStr, nonce: Date.now() }, 
+      { priority: "event" });
+      } // function
+
+); // loadMergedBigWigFromURLs
+//----------------------------------------------------------------------------------------------------
 
 
 
