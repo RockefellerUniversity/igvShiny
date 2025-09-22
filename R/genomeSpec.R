@@ -132,7 +132,9 @@ parseAndValidateGenomeSpec <- function(genomeName,
                                        dataMode = NA,
                                        fasta = NA,
                                        fastaIndex = NA,
-                                       genomeAnnotation = NA) {
+                                       compressedIndex = NA,
+                                       genomeAnnotation = NA,
+                                       genomeAnnotationIndex=NA) {
   options <- list()
   options[["stockGenome"]] <- stockGenome
   options[["dataMode"]] <- dataMode
@@ -162,7 +164,9 @@ parseAndValidateGenomeSpec <- function(genomeName,
     options[["initialLocus"]] <- initialLocus
     options[["fasta"]] <- NA
     options[["fastaIndex"]] <- NA
+    options[["compressedIndexURL"]] <- NA
     options[["annotation"]] <- NA
+    options[["annotationIndex"]] <- NA 
     options[["validated"]] <- TRUE
   }# stockGenome requested
   
@@ -200,8 +204,10 @@ parseAndValidateGenomeSpec <- function(genomeName,
     options[["genomeName"]]  <- genomeName
     options[["fasta"]] <- fasta
     options[["fastaIndex"]] <- fastaIndex
+    options[["compressedIndexURL"]] <- compressedIndex
     options[["initialLocus"]] <- initialLocus
     options[["annotation"]] <- genomeAnnotation
+    options[["annotationIndex"]] <- genomeAnnotationIndex 
     options[["validated"]] <- TRUE
   } # if !stockGenome
   

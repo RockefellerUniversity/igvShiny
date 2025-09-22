@@ -61,7 +61,9 @@ HTMLWidgets.widget({
                                                  parseInt(options.trackHeight),
                                                  options.fasta,
                                                  options.fastaIndex,
+                                                 options.compressedIndexURL,
                                                  options.annotation,
+                                                 options.annotationIndex,
                                                  options.moduleNS)
 
          igvshiny_log("about to createBrowser, trackHeight: " + fullOptions.height)
@@ -135,7 +137,7 @@ function moduleNamespace(ns, nameEvent)
 }
 //------------------------------------------------------------------------------------------------------------
 function genomeSpecificOptions(genomeName, stockGenome, dataMode, initialLocus, displayMode, trackHeight,
-                               fasta, fastaIndex, annotation, moduleNS)
+                               fasta, fastaIndex,compressedIndexURL, annotation,annotationIndex, moduleNS)
 {
     if(stockGenome){
        igvOptions = {
@@ -173,6 +175,7 @@ function genomeSpecificOptions(genomeName, stockGenome, dataMode, initialLocus, 
             id: genomeName,
             fastaURL: fasta,
             indexURL: fastaIndex,
+            compressedIndexURL: compressedIndexURL,
             indexed:  (fastaIndex == null)  ? false : true
             }
         }; // remoteCustomGenome_options
@@ -180,13 +183,15 @@ function genomeSpecificOptions(genomeName, stockGenome, dataMode, initialLocus, 
     if(annotation != null){
         var annotationTrack = {
             "type": "annotation",
-            "format": "gff3",
+            "format": "gtf",
             "name": "GENES",
             "height": 200,
+            "visibilityWindow": 1000000000,
             "order": Number.MAX_VALUE}
         if(dataMode == "http"){
            remoteCustomGenome_options.reference.tracks = [annotationTrack];
            remoteCustomGenome_options.reference.tracks[0].url = annotation;
+           remoteCustomGenome_options.reference.tracks[0].indexURL = annotationIndex;
            }
         if(dataMode == "localFiles"){
            localCustomGenome_options.reference.tracks = [annotationTrack];
@@ -936,6 +941,58 @@ Shiny.addCustomMessageHandler("saveJSONSession",
 
 ); // loadMergedBigWigFromURLs
 //----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("loadSampleInformation",
 
+   function(message){
+      igvshiny_log("=== loadSampleInfo");
+      igvshiny_log(message);
+
+      var elementID = message.elementID;
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+      var config = {url: message.url};
+      console.log("--- loading loadSampleInfo");
+      console.log(config);
+
+      igvBrowser.loadSampleInformation(config);
+      } // function
+
+);  // loadGFF3TrackFromLocalData
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("loadSession",
+
+   function(message){
+      igvshiny_log("=== loadSession");
+      igvshiny_log(message);
+
+      var elementID = message.elementID;
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+      var URL = {url:message.url};
+      console.log("--- loading session");
+      console.log(URL);
+
+      igvBrowser.loadSession(URL);
+      } // function
+
+); // loadGFF3TrackFromLocalData
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+Shiny.addCustomMessageHandler("loadSessionObject",
+
+   function(message){
+      igvshiny_log("=== loadSessionObject");
+      igvshiny_log(message);
+
+      var elementID = message.elementID;
+      var igvBrowser = document.getElementById(elementID).igvBrowser;
+      var config = message.config;
+      console.log("--- loading session");
+      console.log(URL);
+
+      igvBrowser.loadSessionObject(config);
+      } // function
+
+); // loadGFF3TrackFromLocalData
+//----------------------------------------------------------------------------------------------------
 
 

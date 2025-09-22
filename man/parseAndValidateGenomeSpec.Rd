@@ -11,7 +11,9 @@ parseAndValidateGenomeSpec(
   dataMode = NA,
   fasta = NA,
   fastaIndex = NA,
-  genomeAnnotation = NA
+  compressedIndex = NA,
+  genomeAnnotation = NA,
+  genomeAnnotationIndex = NA
 )
 }
 \arguments{

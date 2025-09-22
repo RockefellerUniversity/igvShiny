@@ -57,6 +57,8 @@ igvShiny <- function(genomeOptions,
     sort(names(genomeOptions)) ==
       c(
         "annotation",
+        "annotationIndex",
+        "compressedIndexURL",
         "dataMode",
         "fasta",
         "fastaIndex",
@@ -66,6 +68,7 @@ igvShiny <- function(genomeOptions,
         "validated"
       )
   )
+  message(names(genomeOptions))
   stopifnot(genomeOptions[["validated"]])
   
   if (!genomeOptions[["stockGenome"]] && 
@@ -1312,6 +1315,138 @@ loadMergedBigWigFromURLs <-
     flog.debug("--- igvShiny.R loadMergedBigWigFromURLs, sendingCustomMessage")
     session$sendCustomMessage("loadMergedBigWigFromURLs", msg.to.igv)
     flog.debug("--- loadMergedBigWigFromURLs, after sendingCustomMessage")
+    
+  } # loadBedGraphTrackFromURL
+
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' load sample information
+#'
+#' @description load a Merged track
+#'
+#' @rdname loadSampleInfo
+#' @aliases loadSampleInfo
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' @param url character string
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+loadSampleInfo <-
+  function(session,
+           id,
+           url) {
+    message("---- loadBedGraphTrackFromURL")
+  
+    msg.to.igv <-
+      list(
+        elementID = id,
+        url = url
+      )  # -1 means no grouping
+    
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    session$sendCustomMessage("loadSampleInformation", msg.to.igv)
+    
+  } # loadBedGraphTrackFromURL
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' load session json
+#'
+#' @description load session json
+#'
+#' @rdname loadSession
+#' @aliases loadSession
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' @param url character string
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+loadSession <-
+  function(session,
+           id,
+           url) {
+    message("---- LoadSession")
+    
+    msg.to.igv <-
+      list(
+        elementID = id,
+        url = url
+      )  # -1 means no grouping
+    
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    session$sendCustomMessage("loadSession", msg.to.igv)
+    
+  } # loadBedGraphTrackFromURL
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#' load session object
+#'
+#' @description load session object
+#'
+#' @rdname loadSessionObject
+#' @aliases loadSessionObject
+#'
+#' @param session an environment or list, provided and managed by shiny
+#' @param id character string, the html element id of this widget instance
+#' @param config JSON config
+#' 
+#' @examples
+#' library(igvShiny)
+#' demo_app_file <-
+#'   system.file(package = "igvShiny", "demos", "igvShinyDemo.R")
+#' if (interactive()) {
+#'   shiny::runApp(demo_app_file)
+#' }
+#'
+#' @return
+#' nothing
+#'
+#' @keywords track_loaders
+#' @export
+
+loadSessionObject <-
+  function(session,
+           id,
+           config) {
+    message("---- LoadSession")
+    
+    msg.to.igv <-
+      list(
+        elementID = id,
+        config = config
+      )  # -1 means no grouping
+    
+    futile.logger::flog.info(jsonlite::toJSON(msg.to.igv))
+    session$sendCustomMessage("loadSessionObject", msg.to.igv)
     
   } # loadBedGraphTrackFromURL
 
